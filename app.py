@@ -33,3 +33,31 @@ def determine_winner(user_choice, computer_choice):
         return "You win!"
     else:
         return "You lose!"
+
+def play_game():
+    user_wins = 0
+    total_rounds = 0
+
+    while True:
+        user_choice = get_user_choice()
+        computer_choice = get_computer_choice()
+
+        print(f"You chose {user_choice}. Computer chose {computer_choice}.")
+
+        result = determine_winner(user_choice, computer_choice)
+        print(result)
+
+        if result == "You win!":
+            user_wins += 1
+
+        total_rounds += 1
+
+        print(f"Score - You: {user_wins} Computer: {total_rounds - user_wins}")
+
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again != "yes":
+            print(f"Game over. You won {user_wins} out of {total_rounds} rounds.")
+            break
+
+if __name__ == "__main__":
+    play_game()
