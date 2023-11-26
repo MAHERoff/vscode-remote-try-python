@@ -24,15 +24,15 @@ def get_computer_choice():
 
 def determine_winner(user_choice, computer_choice):
     if user_choice == computer_choice:
-        return "It's a tie!"
+        return "It's a tie!", 0
     elif (
         (user_choice == "rock" and computer_choice == "scissors") or
         (user_choice == "scissors" and computer_choice == "paper") or
         (user_choice == "paper" and computer_choice == "rock")
     ):
-        return "You win!"
+        return "You win!", 1
     else:
-        return "You lose!"
+        return "You lose!", -1
 
 def play_game():
     user_wins = 0
@@ -44,19 +44,23 @@ def play_game():
 
         print(f"You chose {user_choice}. Computer chose {computer_choice}.")
 
-        result = determine_winner(user_choice, computer_choice)
+        result, points = determine_winner(user_choice, computer_choice)
         print(result)
 
-        if result == "You win!":
+        if points == 1:
             user_wins += 1
+        elif points == -1:
+            total_rounds += 1
 
-        total_rounds += 1
-
-        print(f"Score - You: {user_wins} Computer: {total_rounds - user_wins}")
+        print(f"Score - You: {user_wins} Computer: {total_rounds}")
 
         play_again = input("Do you want to play again? (yes/no): ").lower()
         if play_again != "yes":
-            print(f"Game over. You won {user_wins} out of {total_rounds} rounds.")
+            print(f"Final Score - You: {user_wins} Computer: {total_rounds}")
+            if user_wins > total_rounds:
+                print("Well done, you are the best!")
+            else:
+                print("Game over.")
             break
 
 if __name__ == "__main__":
